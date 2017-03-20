@@ -44,7 +44,16 @@ services:
     depends_on:
       - elasticsearch
 
-networks:
+  filebeat:
+    build: filebeat/
+    volumes:
+     - ./filebeat/config/:/etc/filebeat
+    links:
+     - logstash
+    depends_on:
+      - elasticsearch 
+      - logstash
 
+networks:
   elk:
     driver: bridge
